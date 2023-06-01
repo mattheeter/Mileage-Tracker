@@ -4,5 +4,5 @@ from flask import render_template # render_template used to return html from the
 app = Flask(__name__) # Creating new Flask object, with the special vairable __name__ used to automatically choose the module name
 
 @app.route('/') # Decorator for "registering" the route
-def home():
-    return "Hello World!"
+def home(methods=['GET', 'POST']):
+    return render_template('home.html')
