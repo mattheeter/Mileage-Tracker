@@ -1,0 +1,27 @@
+<!doctype html>
+<!-- Base template upon which others will extend upopn -->
+<title>{% block title %}{% endblock %} - Mileage Tracker</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+  <h1>mileage_tracker</h1>
+  <ul>
+    <!-- g is accessible from the templates, if the user is logged in, g.user is set and their info will be displayed -->
+    {% if g.user %}
+      <li><span>{{ g.user['username'] }}</span>
+      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+    <!-- Otherwise the register/login links will be displayed -->
+    {% else %}
+      <li><a href="{{ url_for('auth.register') }}">Register</a>
+      <li><a href="{{ url_for('auth.login') }}">Log In</a>
+    {% endif %}
+  </ul>
+</nav>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
