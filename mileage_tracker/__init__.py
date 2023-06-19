@@ -31,4 +31,8 @@ def create_app(test_config=None):
     app.register_blueprint(auth.bp)
     # Registering the authoriztion blueprint
 
+    from . import vehicle
+    app.register_blueprint(vehicle.bp)
+    app.add_url_rule('/', endpoint='index')
+
     return app
