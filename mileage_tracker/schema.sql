@@ -13,7 +13,9 @@ CREATE TABLE user (
     -- id is the name of a column in the user table, as is username and password
     -- AUTOINCREMENT imposes extra resource overhead for the row
     username TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone_number INTEGER NOT NULL
 );
 
 CREATE TABLE vehicle (
