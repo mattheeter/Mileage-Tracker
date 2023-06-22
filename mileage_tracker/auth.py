@@ -16,8 +16,11 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 def register():
     # Creating the route for the registration page
     if request.method == 'POST':
+        # If a post request is made, setting the variables to the form values
         username = request.form['username']
         password = request.form['password']
+        email = request.form['email']
+        phone_number = request.form['phone_number']
         db = get_db()
         error = None
 
@@ -26,13 +29,17 @@ def register():
             error = 'Username is required.'
         elif not password:
             error = 'Password is required.'
+        elif not phone_number:
+            error = 'Phone number is required.'
+        elif not email:
+            error = 'Email is required.'
          
         if error is None:
             try:
                 db.execute (
-                    "INSERT INTO user (username, password) VALUES (?, ?)",
+                    "INSERT INTO user (username, password, email, phone_number) VALUES (?, ?, ?, ?)",
                     # .execute takes a SQL query with ? placeholders and a tuple of values to fill the placeholders with
-                    (username, generate_password_hash(password)),
+                    (username, generate_password_hash(password), email, phone_number),
                     # This is the tuple, the password is hashed of course
                 )
                 db.commit() # This is called to save the changes to the database
