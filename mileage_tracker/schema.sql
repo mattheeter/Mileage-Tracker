@@ -24,6 +24,7 @@ CREATE TABLE vehicle (
     model_year INTEGER NOT NULL,
     make TEXT NOT NULL,
     model TEXT NOT NULL,
+    miles INTEGER NOT NULL,
     FOREIGN KEY (owner_id) REFERENCES user (id)
     -- Linking this vehicle to it's owner
 )

@@ -49,7 +49,7 @@ def register():
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
-    # Creating the route for the registration page
+    # Creating the route for the login page
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -69,7 +69,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            return redirect(url_for('index'))
+            return redirect(url_for('vehicle.index'))
             # Creating a session for the current user, will be used for subsequent requests with a cookie
         
         flash(error)
@@ -92,7 +92,8 @@ def load_logged_in_user():
 @bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('auth.login'))
+    # Nothing to display upon logout, just redirecting to login page
 
 def login_required(view):
     # Function to wrap a different view function, will be used to check if the user is loaded, and if not, redirects to login page

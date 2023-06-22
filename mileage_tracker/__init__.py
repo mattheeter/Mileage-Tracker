@@ -1,3 +1,5 @@
+# To run: "flask --app mileage_tracker run --debug"
+# To initialize db: flask --app mileage_tracker init-db
 import os
 from flask import Flask
 
@@ -29,10 +31,11 @@ def create_app(test_config=None):
 
     from . import auth
     app.register_blueprint(auth.bp)
-    # Registering the authoriztion blueprint
+    # Registering the auth blueprint
 
     from . import vehicle
     app.register_blueprint(vehicle.bp)
-    app.add_url_rule('/', endpoint='index')
+    #app.add_url_rule('/', endpoint='index')
+    # Registering the vehivle blueprint
 
     return app
