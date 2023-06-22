@@ -35,7 +35,6 @@ def create_app(test_config=None):
 
     from . import vehicle
     app.register_blueprint(vehicle.bp)
-    #app.add_url_rule('/', endpoint='index')
-    # Registering the vehivle blueprint
+    # Registering the vehicle blueprint
 
     return app
