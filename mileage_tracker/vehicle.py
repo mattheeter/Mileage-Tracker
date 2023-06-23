@@ -48,4 +48,20 @@ def create():
 @login_required
 def index():
     # Route where all vehicle stats will be stored
+    db = get_db()
+    vehicles = db.execute(
+        'SELECT model_year, make, model, miles '
+        'FROM vehicle '
+        # 'WHERE owner_id = ?',
+        # (g.user['id'])
+    ).fetchall()
+    return render_template('vehicle/index.html', vehicles=vehicles)
+
+    #  {% if g.user['id'] == post['author_id'] %}
+    #     <a class="action" href="{{ url_for('vehicle.update', id=post['id']) }}">Edit</a>
+    #   {% endif %}
+
+@bp.route('/update')
+@login_required
+def update():
     return render_template('base.html')
