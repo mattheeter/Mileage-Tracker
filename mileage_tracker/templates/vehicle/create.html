@@ -2,6 +2,9 @@
 
 {% block header %}
   <h1>{% block title %}New Vehicle{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('vehicle.index') }}">Vehicles</a>
+  {% endif %}
 {% endblock %}
 
 
