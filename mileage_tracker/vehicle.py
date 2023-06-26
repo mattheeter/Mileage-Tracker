@@ -50,18 +50,36 @@ def index():
     # Route where all vehicle stats will be stored
     db = get_db()
     vehicles = db.execute(
-        'SELECT model_year, make, model, miles '
-        'FROM vehicle '
-        # 'WHERE owner_id = ?',
-        # (g.user['id'])
+        'SELECT v.id, model_year, make, model, miles '
+        'FROM vehicle v JOIN user u ON v.owner_id = u.id ' # Using dot notation and JOIN so that user info is included
+        'WHERE v.owner_id = ? '
+        'ORDER BY created ASC',
+        (str(g.user['id'])) # NEED TO FIX FROM STRING TYPE TO INT
     ).fetchall()
     return render_template('vehicle/index.html', vehicles=vehicles)
 
-    #  {% if g.user['id'] == post['author_id'] %}
-    #     <a class="action" href="{{ url_for('vehicle.update', id=post['id']) }}">Edit</a>
-    #   {% endif %}
-
-@bp.route('/update')
+@bp.route('/<int:id>/update', methods=('GET', 'POST'))
 @login_required
-def update():
+def update(id):
+    # Route for updating a vehicle
     return render_template('base.html')
+
+def get_vehicle(id, check_author=True):
+    # Function to retrieve a vehicle from the database to be updated or deleted
+    db = get_db()
+    vehicle = db.execute( # Fetching vehicle using WHERE to specify what id to get it from
+        'SELECT id, model_year, make, model, miles '
+        'FROM vehicle '
+        'WHERE id = ?',
+        (id)
+    ).fetchone()
+
+    if vehicle is None:
+        # If there is not vehicle for that particular id
+        abort(404, f"Vehicle id {id} doesn't exist.")
+
+    if check_author and vehicle['owner_id'] != g.user['id']:
+        # If the vehicle owner_id and the g.user id do not match up
+        abort(403)
+    
+    return vehicle
