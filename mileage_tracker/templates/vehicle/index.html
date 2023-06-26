@@ -9,13 +9,14 @@
 
 {% block content %}
   {% for vehicle in vehicles %}
-  <article class="post">
+  <article class="vehicle">
     <header>
       <div>
         <h1>{{ vehicle['model_year'] }} {{ vehicle['make'] }} {{ vehicle['model'] }}</h1>
       </div>
+      <a class="action" href="{{ url_for('vehicle.update', id=vehicle['id']) }}">Edit</a>
     </header>
-    <p class="body">{{ vehicle['miles'] }} miles.</p>
+    <p class="body">{{ vehicle['miles'] }} miles</p>
   </article>
   {% endfor %}
 {% endblock %}
