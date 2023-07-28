@@ -11,7 +11,7 @@ def get_db():
     # Called when the application has been created and is handling a request
     if 'db' not in g:
         g.db = sqlite3.connect(
-            current_app.config['DATABASE'], # Establishes a connection to the file pointed at by the DATABASE conig key
+            current_app.config['DATABASE'], # Establishes a connection to the file pointed at by the DATABASE config key
             detect_types=sqlite3.PARSE_DECLTYPES
         )
         g.db.row_factory = sqlite3.Row # Telling application to return rows that act like dictionaries

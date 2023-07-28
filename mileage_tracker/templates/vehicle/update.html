@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Edit Vehicle {{ vehicle['model_year'] }} {{ vehicle['make'] }} {{ vehicle['model'] }}{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('vehicle.index') }}">Vehicles</a>
+  {% endif %}
+{% endblock %}
+
+
+{% block content %}
+  <form method="post">
+    <label for="model_year">Year</label>
+    <input name="model_year" id="model_year">
+    <label for="make">Make</label>
+    <input name="make" id="make">
+    <label for="model">Model</label>
+    <input name="model" id="model">
+    <label for="miles">Mileage</label>
+    <input name="miles" id="miles">
+    <input type="submit" value="Update Vehicle">
+  </form>
+{% endblock %}
