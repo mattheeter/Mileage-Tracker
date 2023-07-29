@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Edit Vehicle {{ vehicle['model_year'] }} {{ vehicle['make'] }} {{ vehicle['model'] }}{% endblock %}</h1>
+  <h1>{% block title %}Edit your {{ vehicle['model_year'] }} {{ vehicle['make'] }} {{ vehicle['model'] }} with {{ vehicle['miles'] }} miles{% endblock %}</h1>
   {% if g.user %}
     <a class="action" href="{{ url_for('vehicle.index') }}">Vehicles</a>
   {% endif %}

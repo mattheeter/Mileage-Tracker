@@ -4,6 +4,7 @@ In SQL, data is stored in tables and columns. This file sets up the tables and c
 
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS vehicle;
+DROP TABLE IF EXISTS maintenance;
 -- The DROP TABLE IF EXISTS will remove a table made with CREATE TABLE
 -- IF EXISTS surpresses an error that occurs if the table already exists
 
@@ -29,4 +30,15 @@ CREATE TABLE vehicle (
     miles INTEGER NOT NULL,
     FOREIGN KEY (owner_id) REFERENCES user(id)
     -- Linking this vehicle to it's owner
+);
+
+CREATE TABLE maintenance (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    vehicle_id INTEGER NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    oil_interval INTEGER,
+    brake_interval INTEGER,
+    last_oil_change INTEGER,
+    last_brake_job INTEGER,
+    FOREIGN KEY (vehicle_id) REFERENCES vehicle(id)
 )

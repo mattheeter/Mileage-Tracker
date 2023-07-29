@@ -18,6 +18,16 @@
       <a class="action" href="{{ url_for('vehicle.update', id=vehicle['id']) }}">Edit</a>
     </header>
     <p class="body">{{ vehicle['miles'] }} miles</p>
+    {% for m in maintenance %}
+        {% if m['id'] == vehicle['id'] %} 
+            <label for="oil">Oil Change: </label>
+            <progress id="oil" value="{{ vehicle['miles'] % m['oil_interval'] }}" max = "{{ m['oil_interval'] }}"></progress>
+            <br>
+            <br>
+            <label for="brakes">Brake Change: </label>
+            <progress id="brakes" value="{{ vehicle['miles'] % m['brake_interval'] }}" max = "{{ m['brake_interval'] }}"></progress>
+        {% endif %}
+    {% endfor %}
   </article>
   {% endfor %}
 {% endblock %}
